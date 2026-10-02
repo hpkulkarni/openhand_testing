@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Config Admin - Configurations</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="bar">
+    <h1>Configurations</h1>
+    <div>
+      <span id="who"></span>
+      <button id="logout" class="secondary">Sign out</button>
+    </div>
+  </header>
+
+  <main class="wide">
+    <section class="toolbar">
+      <input id="search" placeholder="Search key..." aria-label="Search key">
+      <select id="env-filter" aria-label="Environment filter">
+        <option value="">All environments</option>
+        <option>dev</option><option>staging</option><option>prod</option>
+      </select>
+      <button id="new-btn" hidden>New config</button>
+    </section>
+
+    <p id="message" class="error" role="alert" hidden></p>
+
+    <table>
+      <thead>
+        <tr><th>Key</th><th>Value</th><th>Type</th><th>Env</th><th>Updated</th><th></th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+
+  <dialog id="editor">
+    <form method="dialog" id="editor-form">
+      <h2 id="editor-title">Config</h2>
+      <label for="f-key">Key</label>
+      <input id="f-key" required pattern="[a-z0-9_.\-]+">
+      <label for="f-value">Value</label>
+      <input id="f-value" required>
+      <label for="f-type">Type</label>
+      <select id="f-type"><option>string</option><option>int</option><option>bool</option><option>json</option></select>
+      <label for="f-env">Environment</label>
+      <select id="f-env"><option>dev</option><option>staging</option><option>prod</option></select>
+      <label for="f-desc">Description</label>
+      <input id="f-desc">
+      <p id="editor-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button type="button" id="cancel" class="secondary">Cancel</button>
+        <button type="submit" id="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

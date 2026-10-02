@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Config Admin - Sign in</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="center">
+  <main class="card">
+    <h1>Configuration Admin</h1>
+    <form id="login-form" autocomplete="on">
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <p id="error" class="error" role="alert" hidden></p>
+      <button type="submit">Sign in</button>
+    </form>
+    <p class="hint">Demo: <code>admin</code> / <code>admin123</code> (can edit) or
+      <code>viewer</code> / <code>viewer123</code> (read-only)</p>
+  </main>
+  <script>
+    const form = document.getElementById("login-form");
+    const errorEl = document.getElementById("error");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.hidden = true;
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: form.username.value,
+          password: form.password.value,
+        }),
+      });
+      if (res.ok) {
+        window.location.href = "/static/configs.html";
+      } else {
+        const body = await res.json().catch(() => ({}));
+        errorEl.textContent = body.detail || "Sign in failed";
+        errorEl.hidden = false;
+      }
+    });
+  </script>
+</body>
+</html>
