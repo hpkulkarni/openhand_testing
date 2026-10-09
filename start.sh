@@ -24,6 +24,6 @@ docker run "${tty_flags[@]}" --rm --pull=always \
   -e LOG_ALL_EVENTS=true \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "$HOME/.openhands:/.openhands" \
-  -p "${OPENHANDS_PORT}:3000" \
+  -p "127.0.0.1:${OPENHANDS_PORT}:3000" \
   --add-host host.docker.internal:host-gateway \
   docker.openhands.dev/openhands/openhands:${OPENHANDS_VERSION}
