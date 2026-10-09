@@ -14,7 +14,7 @@ mkdir -p workspace
 tty_flags=(-i)
 [ -t 0 ] && tty_flags+=(-t)
 
-docker run "${tty_flags[@]}" --rm --pull=always \
+docker run "${tty_flags[@]}" --rm --pull=missing \
   --name openhands-app \
   -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.openhands.dev/openhands/runtime:${RUNTIME_VERSION} \
   -e SANDBOX_VOLUMES="$PWD/workspace:/workspace:rw" \
